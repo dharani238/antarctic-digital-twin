@@ -1,0 +1,188 @@
+import { Router } from "express";
+
+import {
+  getAllAlerts,
+  getActiveAlerts,
+  getAlertsByStation,
+  resolveAlert,
+  acknowledgeAlert,
+} from "../services/alertService";
+
+const router = Router();
+
+
+// GET ALL ALERTS
+router.get("/", async (_req, res) => {
+  try {
+    const alerts = await getAllAlerts();
+
+    return res.status(200).json({
+      success: true,
+      count: alerts.length,
+      data: alerts,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch alerts",
+    });
+  }
+});
+
+
+// GET ACTIVE ALERTS
+router.get("/active", async (_req, res) => {
+  try {
+    const alerts =
+      await getActiveAlerts();
+
+    return res.status(200).json({
+      success: true,
+      count: alerts.length,
+      data: alerts,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch active alerts",
+    });
+  }
+});
+
+
+// GET ALERTS FOR STATION
+router.get(
+  "/station/:stationId",
+  async (req, res) => {
+    try {
+      const stationId =
+        req.params.stationId;
+
+      if (typeof stationId !== "string") {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid station ID",
+        });
+      }
+
+      const alerts =
+        await getAlertsByStation(
+          stationId
+        );
+
+      return res.status(200).json({
+        success: true,
+        count: alerts.length,
+        data: alerts,
+      });
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        success: false,
+        message:
+          "Failed to fetch station alerts",
+      });
+    }
+  }
+);
+
+
+// ACKNOWLEDGE ALERT
+router.patch(
+  "/:id/acknowledge",
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      if (typeof id !== "string") {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid alert ID",
+        });
+      }
+
+      const alert =
+        await acknowledgeAlert(id);
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Alert acknowledged successfully",
+        data: alert,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to acknowledge alert";
+
+      if (
+        message === "Alert not found"
+      ) {
+        return res.status(404).json({
+          success: false,
+          message,
+        });
+      }
+
+      return res.status(400).json({
+        success: false,
+        message,
+      });
+    }
+  }
+);
+
+
+// RESOLVE ALERT
+router.patch(
+  "/:id/resolve",
+  async (req, res) => {
+    try {
+      const id = req.params.id;
+
+      if (typeof id !== "string") {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid alert ID",
+        });
+      }
+
+      const alert =
+        await resolveAlert(id);
+
+      return res.status(200).json({
+        success: true,
+        message:
+          "Alert resolved successfully",
+        data: alert,
+      });
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to resolve alert";
+
+      if (
+        message === "Alert not found"
+      ) {
+        return res.status(404).json({
+          success: false,
+          message,
+        });
+      }
+
+      return res.status(400).json({
+        success: false,
+        message,
+      });
+    }
+  }
+);
+
+export default router;

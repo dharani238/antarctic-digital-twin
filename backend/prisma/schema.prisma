@@ -1,0 +1,185 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  OPERATOR
+  VIEWER
+}
+
+enum StationType {
+  RESEARCH
+  SEASONAL
+  PERMANENT
+}
+
+enum SensorType {
+  TEMPERATURE
+  HUMIDITY
+  PRESSURE
+  WIND_SPEED
+  WIND_DIRECTION
+  SOLAR_RADIATION
+  POWER
+  FUEL_LEVEL
+  WATER_LEVEL
+  AIR_QUALITY
+  OTHER
+}
+
+enum SensorStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+  FAULT
+}
+enum AlertSeverity {
+  INFO
+  WARNING
+  CRITICAL
+}
+
+enum AlertStatus {
+  ACTIVE
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+enum ThresholdOperator {
+  GREATER_THAN
+  GREATER_THAN_OR_EQUAL
+  LESS_THAN
+  LESS_THAN_OR_EQUAL
+  EQUAL
+}
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole @default(VIEWER)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  stations  Station[]
+}
+
+model Station {
+  id          String      @id @default(uuid())
+  name        String
+  code        String      @unique
+  description String?
+  type        StationType
+
+  latitude    Float
+  longitude   Float
+  elevation   Float?
+
+  active      Boolean     @default(true)
+
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  createdById String?
+  createdBy   User?       @relation(fields: [createdById], references: [id])
+
+  infrastructures Infrastructure[]
+  sensors          Sensor[]
+}
+
+model Infrastructure {
+  id          String   @id @default(uuid())
+  name        String
+  type        String
+  description String?
+  status      String   @default("OPERATIONAL")
+
+  stationId   String
+  station     Station  @relation(fields: [stationId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Sensor {
+  id          String       @id @default(uuid())
+  name        String
+  code        String       @unique
+  type        SensorType
+  unit        String
+  status      SensorStatus @default(ACTIVE)
+
+  stationId   String
+  station     Station      @relation(fields: [stationId], references: [id], onDelete: Cascade)
+
+  readings    SensorReading[]
+  thresholds  SensorThreshold[] 
+  alerts      Alert[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model SensorReading {
+  id          String   @id @default(uuid())
+
+  value       Float
+  recordedAt  DateTime @default(now())
+
+  sensorId    String
+  sensor      Sensor   @relation(fields: [sensorId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now())
+
+  @@index([sensorId, recordedAt])
+}
+model SensorThreshold {
+  id          String            @id @default(uuid())
+  name        String
+  description String?
+
+  sensorId    String
+  sensor      Sensor            @relation(fields: [sensorId], references: [id], onDelete: Cascade)
+
+  operator    ThresholdOperator
+  value       Float
+  severity    AlertSeverity     @default(WARNING)
+
+  enabled     Boolean           @default(true)
+
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  alerts      Alert[]
+}
+
+model Alert {
+  id           String          @id @default(uuid())
+
+  title        String
+  message      String
+
+  severity     AlertSeverity
+  status       AlertStatus     @default(ACTIVE)
+
+  sensorId     String
+  sensor       Sensor          @relation(fields: [sensorId], references: [id], onDelete: Cascade)
+
+  thresholdId  String?
+  threshold    SensorThreshold? @relation(fields: [thresholdId], references: [id], onDelete: SetNull)
+
+  value        Float?
+  triggeredAt  DateTime        @default(now())
+  resolvedAt   DateTime?
+
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+
+  @@index([sensorId, status])
+  @@index([status, triggeredAt])
+}
