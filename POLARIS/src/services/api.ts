@@ -280,15 +280,6 @@ async function request<T>(
     );
   }
 
-  if (response.status === 401) {
-    removeToken();
-    localStorage.removeItem(USER_KEY);
-
-    throw new Error(
-      "Authentication expired or invalid. Please login again."
-    );
-  }
-
   let result: unknown;
 
   try {
