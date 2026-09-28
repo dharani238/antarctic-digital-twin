@@ -3,8 +3,8 @@
  * ---------------------------------------------------------
  * Central API layer for the POLARIS Antarctic Digital Twin.
  *
- * Backend:
- * http://localhost:5001/api/v1
+ * Production Backend:
+ * https://antarctic-digital-twin.onrender.com/api/v1
  *
  * Authentication:
  * JWT Bearer Token
@@ -13,7 +13,7 @@
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ||
-  "http://localhost:5001/api/v1";
+  "https://antarctic-digital-twin.onrender.com/api/v1";
 
 const TOKEN_KEY = "polaris_token";
 const USER_KEY = "polaris_user";
@@ -276,7 +276,7 @@ async function request<T>(
     console.error("POLARIS API connection error:", error);
 
     throw new Error(
-      "Unable to reach POLARIS backend. Make sure the backend is running on http://localhost:5001."
+      "Unable to reach POLARIS backend. Please check the server connection."
     );
   }
 
