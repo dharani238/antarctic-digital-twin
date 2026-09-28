@@ -8,40 +8,46 @@ const JWT_SECRET =
 const JWT_EXPIRES_IN =
   process.env.JWT_EXPIRES_IN || "1d";
 
+/* =========================================================
+   REGISTER USER
+========================================================= */
 
-// REGISTER USER
 export const registerUser = async (
   name: string,
   email: string,
   password: string,
   role: "ADMIN" | "OPERATOR" | "VIEWER" = "VIEWER"
 ) => {
+  // Normalize email so login and registration use the same format
+  const normalizedEmail = email.trim().toLowerCase();
 
-  const existingUser =
-    await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      email: normalizedEmail,
+    },
+  });
 
   if (existingUser) {
-    throw new Error(
-      "User with this email already exists"
-    );
+    throw new Error("User with this email already exists");
   }
 
-  const hashedPassword =
-    await bcrypt.hash(password, 10);
+  // Hash password before storing it
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-  const user =
-    await prisma.user.create({
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        role,
-      },
-    });
+  const user = await prisma.user.create({
+    data: {
+      name: name.trim(),
+      email: normalizedEmail,
+      password: hashedPassword,
+      role,
+    },
+  });
+
+  console.log("REGISTER SUCCESS:", {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
 
   return {
     id: user.id,
@@ -52,37 +58,64 @@ export const registerUser = async (
   };
 };
 
+/* =========================================================
+   LOGIN USER
+========================================================= */
 
-// LOGIN USER
 export const loginUser = async (
   email: string,
   password: string
 ) => {
+  // Use exactly the same email normalization as registration
+  const normalizedEmail = email.trim().toLowerCase();
 
-  const user =
-    await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+  console.log("LOGIN ATTEMPT:", normalizedEmail);
 
+  const user = await prisma.user.findUnique({
+    where: {
+      email: normalizedEmail,
+    },
+  });
+
+  // TEMPORARY DEBUG MESSAGE
   if (!user) {
+    console.log(
+      "LOGIN FAILED: User not found:",
+      normalizedEmail
+    );
+
     throw new Error(
-      "Invalid email or password"
+      "DEBUG: User not found in database"
     );
   }
 
-  const passwordMatch =
-    await bcrypt.compare(
-      password,
-      user.password
-    );
+  console.log("LOGIN USER FOUND:", {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+  });
 
+  const passwordMatch = await bcrypt.compare(
+    password,
+    user.password
+  );
+
+  // TEMPORARY DEBUG MESSAGE
   if (!passwordMatch) {
+    console.log(
+      "LOGIN FAILED: Password does not match for:",
+      normalizedEmail
+    );
+
     throw new Error(
-      "Invalid email or password"
+      "DEBUG: User exists but password does not match"
     );
   }
+
+  console.log(
+    "LOGIN PASSWORD VERIFIED:",
+    normalizedEmail
+  );
 
   const token = jwt.sign(
     {
@@ -108,26 +141,27 @@ export const loginUser = async (
   };
 };
 
+/* =========================================================
+   GET CURRENT USER
+========================================================= */
 
-// GET CURRENT USER
 export const getCurrentUser = async (
   userId: string
 ) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
 
-  const user =
-    await prisma.user.findUnique({
-      where: {
-        id: userId,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        role: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      role: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
 
   if (!user) {
     throw new Error("User not found");
