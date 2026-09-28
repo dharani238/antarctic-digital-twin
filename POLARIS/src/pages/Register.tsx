@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,7 +15,11 @@ import {
 
 import "./Register.css";
 
-const API_BASE_URL = "http://localhost:5001/api/v1";
+// Production backend on Render.
+// If VITE_API_BASE_URL exists, it will use that instead.
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://antarctic-digital-twin.onrender.com/api/v1";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -73,6 +78,11 @@ export default function Register() {
     try {
       setLoading(true);
 
+      console.log(
+        "REGISTER REQUEST:",
+        `${API_BASE_URL}/auth/register`
+      );
+
       const response = await fetch(
         `${API_BASE_URL}/auth/register`,
         {
@@ -91,17 +101,31 @@ export default function Register() {
         }
       );
 
-      const result = await response.json();
+      let result: any = null;
+
+      try {
+        result = await response.json();
+      } catch {
+        throw new Error(
+          `Server returned an invalid response (${response.status}).`
+        );
+      }
+
+      console.log(
+        "REGISTER RESPONSE:",
+        response.status,
+        result
+      );
 
       if (!response.ok) {
         throw new Error(
           result?.message ||
-            "Unable to create operator account."
+            `Unable to create operator account (${response.status}).`
         );
       }
 
       setSuccess(
-        "Operator account created successfully."
+        "Operator account created successfully. Redirecting to login..."
       );
 
       setTimeout(() => {
@@ -111,18 +135,24 @@ export default function Register() {
           },
           replace: true,
         });
-      }, 800);
+      }, 1000);
     } catch (err) {
       console.error(
         "POLARIS registration error:",
         err
       );
 
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Unable to create operator account."
-      );
+      if (err instanceof TypeError) {
+        setError(
+          "Unable to connect to the POLARIS server. Please try again."
+        );
+      } else {
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Unable to create operator account."
+        );
+      }
     } finally {
       setLoading(false);
     }
