@@ -1,0 +1,547 @@
+/* =========================================================
+   POLARIS SIDEBAR
+   ========================================================= */
+
+.polarisSidebar,
+.polarisSidebar *,
+.polarisSidebar *::before,
+.polarisSidebar *::after {
+  box-sizing: border-box;
+}
+
+.polarisSidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: 218px;
+  height: 100vh;
+
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px 14px 16px;
+
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(33, 149, 165, 0.13),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #061f27 0%,
+      #05242c 48%,
+      #041a21 100%
+    );
+
+  border-right: 1px solid rgba(116, 193, 203, 0.12);
+
+  box-shadow: 8px 0 30px rgba(0, 26, 34, 0.08);
+
+  color: #ffffff;
+
+  overflow: hidden;
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.polarisBrand {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 2px 5px 18px;
+}
+
+.polarisBrandMark {
+  width: 38px;
+  height: 38px;
+
+  flex: 0 0 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  color: #5ad2dd;
+
+  background: rgba(36, 145, 160, 0.1);
+
+  border: 1px solid rgba(84, 197, 211, 0.22);
+}
+
+.polarisBrandText {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.polarisBrandText strong {
+  display: block;
+
+  margin: 0;
+  padding: 0;
+
+  color: #f5fbfc;
+
+  font-size: 14px;
+  line-height: 17px;
+
+  font-weight: 700;
+
+  letter-spacing: 3px;
+}
+
+.polarisBrandText span {
+  display: block;
+
+  margin: 4px 0 0;
+  padding: 0;
+
+  color: #6d9097;
+
+  font-size: 6.5px;
+  line-height: 9px;
+
+  font-weight: 600;
+
+  letter-spacing: 1.15px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   DIVIDER
+   ========================================================= */
+
+.polarisDivider {
+  width: calc(100% - 10px);
+
+  height: 1px;
+
+  margin: 0 auto;
+
+  background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* =========================================================
+   NAVIGATION LABEL
+   ========================================================= */
+
+.polarisNavLabel {
+  display: block;
+
+  margin: 22px 10px 9px;
+
+  color: #547a81;
+
+  font-size: 6.5px;
+  line-height: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.7px;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.polarisNavigation {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.polarisNavItem {
+  position: relative;
+
+  width: 100%;
+  height: 41px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0;
+  padding: 0 11px;
+
+  border-radius: 8px;
+
+  color: #829fa5;
+
+  text-decoration: none;
+
+  background: transparent;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.polarisNavItem:hover {
+  color: #edf9fa;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.polarisNavItemActive {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(24, 140, 158, 0.27),
+      rgba(17, 99, 113, 0.11)
+    );
+
+  box-shadow:
+    inset 2px 0 0 #47cad8;
+}
+
+.polarisNavIcon {
+  width: 18px;
+  height: 18px;
+
+  flex: 0 0 18px;
+
+  color: #69969e;
+}
+
+.polarisNavItemActive .polarisNavIcon {
+  color: #5ed3df;
+}
+
+.polarisNavItem > span {
+  display: block;
+
+  flex: 1;
+
+  margin: 0;
+  padding: 0;
+
+  color: inherit;
+
+  font-size: 10px;
+  line-height: 13px;
+
+  font-weight: 500;
+
+  letter-spacing: 0;
+
+  white-space: nowrap;
+}
+
+.polarisNavArrow {
+  flex: 0 0 auto;
+
+  color: #5c8d95;
+
+  opacity: 0;
+
+  transform: translateX(-3px);
+
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
+}
+
+.polarisNavItem:hover .polarisNavArrow,
+.polarisNavItemActive .polarisNavArrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.polarisSidebarBottom {
+  width: 100%;
+
+  margin-top: auto;
+
+  padding-top: 12px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+.polarisSettings {
+  width: 100%;
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 0;
+  padding: 0 11px;
+
+  border-radius: 8px;
+
+  color: #78969c;
+
+  text-decoration: none;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.polarisSettings:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.polarisSettingsActive {
+  color: #ffffff;
+
+  background: rgba(26, 125, 140, 0.13);
+}
+
+.polarisSettings > span {
+  display: block;
+
+  flex: 1;
+
+  margin: 0;
+  padding: 0;
+
+  color: inherit;
+
+  font-size: 10px;
+  line-height: 12px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.polarisLogout {
+  width: 100%;
+  height: 39px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  margin: 6px 0 0;
+  padding: 0 11px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: transparent;
+
+  color: #78969c;
+
+  font-family: inherit;
+  font-size: 10px;
+  line-height: 12px;
+  font-weight: 500;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.polarisLogout:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.polarisLogout:active {
+  transform: translateY(1px);
+}
+
+.polarisLogout svg {
+  flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.polarisFooter {
+  display: flex;
+
+  flex-direction: column;
+
+  margin: 13px 10px 0;
+}
+
+.polarisFooter strong {
+  display: block;
+
+  margin: 0;
+  padding: 0;
+
+  color: #66898f;
+
+  font-size: 7px;
+  line-height: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+.polarisFooter span {
+  display: block;
+
+  margin: 3px 0 0;
+  padding: 0;
+
+  color: #496d73;
+
+  font-size: 7px;
+  line-height: 9px;
+}
+
+.polarisFooter small {
+  display: block;
+
+  margin: 2px 0 0;
+  padding: 0;
+
+  color: #3c5f65;
+
+  font-size: 6.5px;
+  line-height: 8px;
+}
+
+
+/* =========================================================
+   APP LAYOUT
+   ========================================================= */
+
+.polaris-layout {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.polaris-workspace {
+  width: calc(100% - 218px);
+
+  min-width: 0;
+  min-height: 100vh;
+
+  margin-left: 218px;
+
+  overflow-x: hidden;
+
+  background: #f3f6f7;
+}
+
+
+/* =========================================================
+   LAPTOP / SHORT SCREEN
+   ========================================================= */
+
+@media (max-height: 760px) {
+
+  .polarisSidebar {
+    padding-top: 15px;
+    padding-bottom: 12px;
+  }
+
+  .polarisBrand {
+    padding-bottom: 13px;
+  }
+
+  .polarisNavLabel {
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+
+  .polarisNavigation {
+    gap: 2px;
+  }
+
+  .polarisNavItem {
+    height: 36px;
+  }
+
+  .polarisSidebarBottom {
+    padding-top: 7px;
+  }
+
+  .polarisSettings {
+    height: 34px;
+  }
+
+  .polarisLogout {
+    height: 34px;
+    margin-top: 4px;
+  }
+
+  .polarisFooter {
+    margin-top: 8px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .polarisSidebar {
+    display: none;
+  }
+
+  .polaris-workspace {
+    width: 100%;
+
+    margin-left: 0;
+  }
+}

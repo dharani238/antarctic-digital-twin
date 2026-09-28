@@ -1,0 +1,2214 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #eef3f3;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #eef3f3;
+  color: #16343b;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.ccApp {
+  --navy: #082a33;
+  --navy2: #0d3943;
+  --teal: #177b85;
+  --cyan: #48bdd0;
+  --green: #25866c;
+  --line: #d6e1e1;
+  --paper: #f7f9f8;
+  --muted: #6d8185;
+
+  min-height: 100vh;
+  background: #eef3f3;
+  display: grid;
+  grid-template-columns: 230px minmax(0, 1fr);
+}
+
+/* SIDEBAR */
+
+.ccSidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 230px;
+  background:
+    linear-gradient(180deg, rgba(5, 35, 44, 0.98), rgba(7, 44, 52, 1));
+  color: white;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ccBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 21px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.ccBrandLogo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  color: #7ee6ef;
+  border: 1px solid rgba(115, 224, 234, 0.28);
+  background: rgba(78, 192, 205, 0.08);
+}
+
+.ccBrand strong {
+  display: block;
+  letter-spacing: 3px;
+  font-size: 16px;
+}
+
+.ccBrand span {
+  display: block;
+  color: #71959c;
+  font-size: 7px;
+  letter-spacing: 2px;
+  margin-top: 4px;
+}
+
+.ccMission {
+  margin: 18px 0;
+  padding: 13px 14px;
+  border: 1px solid rgba(117, 192, 199, 0.16);
+  background: rgba(4, 25, 31, 0.28);
+  border-radius: 8px;
+}
+
+.ccMission span,
+.ccMission small {
+  display: block;
+}
+
+.ccMission span {
+  color: #70949a;
+  font-size: 8px;
+  letter-spacing: 2px;
+}
+
+.ccMission strong {
+  display: block;
+  color: #5ed4df;
+  margin: 5px 0;
+  font-size: 12px;
+}
+
+.ccMission small {
+  color: #829ca1;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.ccNav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ccNavItem {
+  text-decoration: none;
+  color: #8fa9ad;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 39px;
+  padding: 0 13px;
+  border-radius: 7px;
+  font-size: 11px;
+  transition: 0.2s ease;
+}
+
+.ccNavItem:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.055);
+  transform: translateX(2px);
+}
+
+.ccNavItem.active {
+  color: #eafcfd;
+  background: rgba(49, 166, 181, 0.15);
+  border-left: 2px solid #58ced8;
+}
+
+.ccSystem {
+  margin-top: auto;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid rgba(62, 203, 164, 0.18);
+  background: rgba(29, 129, 102, 0.09);
+  border-radius: 7px;
+}
+
+.ccSystem strong,
+.ccSystem small {
+  display: block;
+}
+
+.ccSystem strong {
+  color: #63dbb1;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.ccSystem small {
+  color: #78999b;
+  margin-top: 3px;
+  font-size: 8px;
+}
+
+.ccPulse,
+.ccOperational i,
+.ccSatelliteStatus i {
+  width: 7px;
+  height: 7px;
+  background: #42d7a0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 5px rgba(66, 215, 160, 0.09);
+  animation: ccPulse 2s infinite;
+}
+
+@keyframes ccPulse {
+  50% {
+    box-shadow: 0 0 0 9px rgba(66, 215, 160, 0);
+  }
+}
+
+.ccSidebarFooter {
+  margin-top: 18px;
+  color: #587b80;
+  font-size: 7px;
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
+
+.ccSidebarFooter strong,
+.ccSidebarFooter span {
+  display: block;
+}
+
+/* MAIN */
+
+.ccMain {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.ccTopbar {
+  height: 74px;
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  background: rgba(247, 250, 249, 0.96);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #d8e2e2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+.ccTopbar > div:first-child span,
+.ccTopbar > div:first-child strong {
+  display: block;
+}
+
+.ccTopbar > div:first-child span {
+  color: #3a8d96;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.ccTopbar > div:first-child strong {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #173d44;
+}
+
+.ccTopActions {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.ccDataBadge {
+  color: #287d88;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 8px 10px;
+  border: 1px solid #cae1e3;
+  border-radius: 5px;
+}
+
+.ccClock span,
+.ccClock strong {
+  display: block;
+}
+
+.ccClock span {
+  color: #829497;
+  font-size: 7px;
+}
+
+.ccClock strong {
+  margin-top: 2px;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.ccAlertCounter {
+  border: 1px solid #e8cbb7;
+  background: #fff5ec;
+  color: #a4582b;
+  border-radius: 6px;
+  min-width: 48px;
+  height: 34px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ccContent {
+  max-width: 1500px;
+  margin: auto;
+  padding: 26px;
+}
+
+/* HERO */
+
+.ccHero {
+  height: 455px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 13px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 14px 45px rgba(19, 52, 59, 0.12);
+}
+
+.ccHeroShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(4, 28, 35, 0.94) 0%,
+      rgba(5, 35, 42, 0.76) 43%,
+      rgba(4, 30, 36, 0.28) 75%,
+      rgba(4, 30, 36, 0.18) 100%
+    ),
+    linear-gradient(0deg, rgba(3, 25, 31, 0.85), transparent 50%);
+}
+
+.ccHeroContent {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+  padding: 42px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.ccHeroTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.ccHeroCopy {
+  max-width: 690px;
+}
+
+.ccEyebrow {
+  color: #6cd5df;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.ccHero h1 {
+  margin: 17px 0 15px;
+  font-size: clamp(36px, 4vw, 60px);
+  line-height: 0.98;
+  letter-spacing: -2.5px;
+  font-weight: 650;
+}
+
+.ccHero h1 em {
+  color: #77d9e1;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.ccHeroCopy p {
+  max-width: 620px;
+  color: #c7d6d7;
+  line-height: 1.65;
+  font-size: 13px;
+}
+
+.ccStationSwitch {
+  min-width: 255px;
+}
+
+.ccStationSwitch > span {
+  display: block;
+  color: #8eb4b8;
+  font-size: 8px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.ccStationSwitch > div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 4px;
+  background: rgba(4, 25, 30, 0.7);
+  backdrop-filter: blur(12px);
+  border-radius: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.ccStationSwitch button {
+  border: 0;
+  padding: 11px;
+  background: transparent;
+  color: #88a8ac;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  border-radius: 5px;
+}
+
+.ccStationSwitch button.active {
+  color: white;
+  background: #176678;
+}
+
+.ccStationBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 20px;
+}
+
+.ccStationCode {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  background: rgba(45, 169, 187, 0.18);
+  border: 1px solid rgba(86, 202, 218, 0.28);
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #79dbe4;
+}
+
+.ccStationName span,
+.ccStationName strong,
+.ccStationName small {
+  display: block;
+}
+
+.ccStationName span {
+  color: #87aeb3;
+  font-size: 7px;
+  letter-spacing: 1.6px;
+}
+
+.ccStationName strong {
+  margin: 4px 0;
+  font-size: 15px;
+}
+
+.ccStationName small {
+  color: #a9bec1;
+}
+
+.ccOperational {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #75dfb8;
+  font-size: 9px;
+  letter-spacing: 1.4px;
+}
+
+/* POLICY */
+
+.ccPolicy {
+  margin: 14px 0;
+  min-height: 47px;
+  padding: 10px 15px;
+  border: 1px solid #cbdedf;
+  background: #f8fbfa;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ccPolicy svg {
+  color: #2c8791;
+  flex: 0 0 auto;
+}
+
+.ccPolicy strong {
+  color: #24727d;
+  font-size: 8px;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
+}
+
+.ccPolicy p {
+  margin: 0;
+  color: #73878a;
+  font-size: 9px;
+}
+
+/* METRICS */
+
+.ccMetrics {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 11px;
+}
+
+.ccMetric {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 16px;
+  min-width: 0;
+  box-shadow: 0 3px 13px rgba(16, 56, 64, 0.035);
+}
+
+.ccMetricHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ccMetricIcon {
+  color: #278b9b;
+}
+
+.ccLive {
+  font-size: 6px;
+  color: #498c79;
+  letter-spacing: 1px;
+}
+
+.ccLive i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: #39bc89;
+  border-radius: 50%;
+  margin-right: 4px;
+}
+
+.ccMetricLabel {
+  display: block;
+  color: #839396;
+  font-size: 8px;
+  letter-spacing: 1.3px;
+  margin-top: 16px;
+}
+
+.ccMetric > strong {
+  display: block;
+  color: #163c44;
+  font-size: 25px;
+  margin: 5px 0;
+}
+
+.ccMetric > small {
+  color: #849497;
+  font-size: 9px;
+}
+
+/* SECTION */
+
+.ccSectionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  margin: 37px 2px 14px;
+}
+
+.ccSectionTitle span,
+.ccPanelHeading span {
+  color: #36818a;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.ccSectionTitle h2 {
+  margin: 5px 0 0;
+  font-size: 22px;
+  letter-spacing: -0.5px;
+}
+
+.ccSectionTitle p {
+  color: #7a8d90;
+  font-size: 10px;
+}
+
+/* STATION OVERVIEW */
+
+.ccOperationsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(310px, 0.7fr);
+  gap: 14px;
+}
+
+.ccStationOverview {
+  position: relative;
+  min-height: 510px;
+  overflow: hidden;
+  border-radius: 11px;
+  background: #0a343e;
+}
+
+.ccStationOverview > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 8s ease;
+}
+
+.ccStationOverview:hover > img {
+  transform: scale(1.035);
+}
+
+.ccPhotoGradient {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 28, 33, 0.76), transparent 38%),
+    linear-gradient(0deg, rgba(5, 30, 36, 0.92), transparent 45%);
+}
+
+.ccPhotoHeader {
+  position: absolute;
+  z-index: 2;
+  top: 25px;
+  left: 27px;
+  right: 27px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  color: white;
+}
+
+.ccPhotoHeader span {
+  color: #75d8e0;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+}
+
+.ccPhotoHeader h2 {
+  margin: 5px 0;
+  font-size: 25px;
+}
+
+.ccPhotoHeader button,
+.ccWeatherContent button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(4, 31, 37, 0.54);
+  backdrop-filter: blur(8px);
+  color: white;
+  border-radius: 6px;
+  padding: 9px 12px;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.ccHotspot {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  padding: 7px 9px;
+  color: white;
+  background: rgba(6, 39, 46, 0.76);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(116, 220, 224, 0.35);
+  border-radius: 5px;
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+
+.ccHotspot i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #59ddb0;
+  box-shadow: 0 0 10px #59ddb0;
+}
+
+.ccHotspotPower {
+  top: 44%;
+  left: 26%;
+}
+
+.ccHotspotComms {
+  top: 36%;
+  right: 22%;
+}
+
+.ccHotspotHVAC {
+  bottom: 28%;
+  left: 51%;
+}
+
+.ccCoordinates {
+  position: absolute;
+  z-index: 2;
+  left: 27px;
+  bottom: 25px;
+  color: white;
+}
+
+.ccCoordinates span,
+.ccCoordinates strong {
+  display: block;
+}
+
+.ccCoordinates span {
+  color: #8eafb3;
+  font-size: 7px;
+  letter-spacing: 1.5px;
+}
+
+.ccCoordinates strong {
+  margin-top: 5px;
+  font-size: 11px;
+}
+
+/* PANELS */
+
+.ccPanel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 21px;
+  box-shadow: 0 5px 20px rgba(14, 54, 62, 0.04);
+}
+
+.ccPanelHeading {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.ccPanelHeading svg {
+  color: #318693;
+}
+
+.ccPanelHeading h3 {
+  margin: 5px 0 0;
+  font-size: 16px;
+}
+
+.ccAiEngine,
+.ccSatelliteStatus {
+  margin: 18px 0;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  background: #f1f7f6;
+  border: 1px solid #d8e6e4;
+  border-radius: 8px;
+}
+
+.ccAiEngine > div,
+.ccSatelliteStatus > div {
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #237b85;
+  background: white;
+  border: 1px solid #d6e4e3;
+}
+
+.ccAiEngine section,
+.ccSatelliteStatus section {
+  flex: 1;
+}
+
+.ccAiEngine strong,
+.ccAiEngine span,
+.ccSatelliteStatus strong,
+.ccSatelliteStatus span {
+  display: block;
+}
+
+.ccAiEngine strong,
+.ccSatelliteStatus strong {
+  font-size: 9px;
+  letter-spacing: 0.8px;
+}
+
+.ccAiEngine span,
+.ccSatelliteStatus span {
+  color: #7b8d8f;
+  font-size: 8px;
+  margin-top: 4px;
+}
+
+.ccAiEngine i {
+  width: 7px;
+  height: 7px;
+  background: #35bb88;
+  border-radius: 50%;
+}
+
+.ccPredictionCard {
+  border-left: 3px solid #3b9581;
+  background: #f6faf8;
+  padding: 14px;
+  margin-top: 11px;
+}
+
+.ccPredictionCard.warning {
+  border-left-color: #d49352;
+  background: #fffaf4;
+}
+
+.ccPredictionCard > span {
+  color: #798e90;
+  font-size: 7px;
+  letter-spacing: 1.3px;
+}
+
+.ccPredictionCard > strong {
+  display: block;
+  margin: 7px 0;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.ccPredictionCard p {
+  color: #77898c;
+  margin: 0;
+  line-height: 1.55;
+  font-size: 9px;
+}
+
+.ccPredictionCard > div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 11px;
+  color: #859699;
+  font-size: 7px;
+}
+
+.ccPredictionCard b {
+  color: #a56735;
+}
+
+.ccPrimaryButton {
+  width: 100%;
+  border: 0;
+  background: #0d4d58;
+  color: white;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 16px;
+  font-size: 8px;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* IMAGE CARDS */
+
+.ccImageCards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ccImageCard {
+  height: 270px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  color: white;
+  padding: 20px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.ccImageCard img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ccImageCard:hover img {
+  transform: scale(1.055);
+}
+
+.ccImageCard > div {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, rgba(3, 29, 35, 0.96), rgba(5, 36, 43, 0.06) 75%);
+}
+
+.ccImageCard > span,
+.ccImageCard h3,
+.ccImageCard p,
+.ccImageCard > strong {
+  position: relative;
+  z-index: 2;
+}
+
+.ccImageCard > span {
+  color: #75d9df;
+  font-size: 7px;
+  letter-spacing: 1.6px;
+}
+
+.ccImageCard h3 {
+  margin: 6px 0;
+  font-size: 16px;
+}
+
+.ccImageCard p {
+  color: #cad8d9;
+  font-size: 9px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ccImageCard > strong {
+  margin-top: 12px;
+  font-size: 7px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* VIDEO + CHART */
+
+.ccDataGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.ccVideoPanel {
+  height: 355px;
+  border-radius: 11px;
+  overflow: hidden;
+  position: relative;
+  color: white;
+}
+
+.ccVideoPanel video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ccVideoOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(4, 30, 36, 0.65), transparent 50%),
+    linear-gradient(0deg, rgba(3, 26, 32, 0.8), transparent 55%);
+}
+
+.ccVideoHeader {
+  position: absolute;
+  left: 24px;
+  top: 22px;
+}
+
+.ccVideoHeader span,
+.ccVideoHeader strong {
+  display: block;
+}
+
+.ccVideoHeader span {
+  color: #7fe0e6;
+  font-size: 8px;
+  letter-spacing: 1.6px;
+}
+
+.ccVideoHeader strong {
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.ccVideoBadge {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  background: rgba(3, 30, 37, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 7px;
+}
+
+.ccVideoBottom {
+  position: absolute;
+  left: 24px;
+  right: 20px;
+  bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ccVideoBottom span {
+  color: #c7d8da;
+  font-size: 9px;
+}
+
+.ccVideoBottom button,
+.ccTextButton {
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #4ba8b4;
+  font-size: 8px;
+  font-weight: 800;
+}
+
+.ccVideoBottom button {
+  color: white;
+}
+
+.ccChartPanel {
+  min-width: 0;
+}
+
+.ccChartLegend {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin: 18px 0 4px;
+  color: #778b8e;
+  font-size: 8px;
+}
+
+.ccChartLegend i {
+  display: inline-block;
+  width: 15px;
+  height: 2px;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.ccChartLegend .demand {
+  background: #287f9b;
+}
+
+.ccChartLegend .generation {
+  background: #2c8c6f;
+}
+
+.ccChart {
+  height: 245px;
+}
+
+/* LOWER */
+
+.ccLowerGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.8fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.ccWeatherCard {
+  min-height: 345px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 11px;
+  color: white;
+}
+
+.ccWeatherCard > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ccWeatherShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(4, 30, 37, 0.92),
+    rgba(4, 30, 37, 0.47)
+  );
+}
+
+.ccWeatherContent {
+  position: relative;
+  z-index: 2;
+  padding: 24px;
+  height: 100%;
+}
+
+.ccPanelHeading.light span {
+  color: #7ddde4;
+}
+
+.ccPanelHeading.light h3 {
+  color: white;
+}
+
+.ccPanelHeading.light svg {
+  color: white;
+}
+
+.ccCondition {
+  margin: 38px 0 25px;
+}
+
+.ccCondition strong,
+.ccCondition span {
+  display: block;
+}
+
+.ccCondition strong {
+  font-size: 28px;
+}
+
+.ccCondition span {
+  color: #b6cacc;
+  margin-top: 4px;
+  font-size: 9px;
+}
+
+.ccWeatherStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 16px 0;
+  margin-bottom: 18px;
+}
+
+.ccWeatherStats div {
+  padding-right: 10px;
+}
+
+.ccWeatherStats span,
+.ccWeatherStats strong {
+  display: block;
+}
+
+.ccWeatherStats span {
+  color: #9eb7ba;
+  font-size: 7px;
+}
+
+.ccWeatherStats strong {
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.ccAlertList {
+  margin-top: 18px;
+}
+
+.ccAlert {
+  display: flex;
+  gap: 10px;
+  border-left: 3px solid #d69b57;
+  background: #fff9f1;
+  padding: 12px;
+  margin-bottom: 9px;
+}
+
+.ccAlert svg {
+  color: #c17b34;
+  flex: 0 0 auto;
+}
+
+.ccAlert span,
+.ccAlert strong {
+  display: block;
+}
+
+.ccAlert span {
+  color: #9a8370;
+  font-size: 7px;
+}
+
+.ccAlert strong {
+  margin: 4px 0;
+  font-size: 10px;
+}
+
+.ccAlert p {
+  color: #7c898a;
+  font-size: 8px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.ccAllClear {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #32866e;
+  text-align: center;
+}
+
+.ccAllClear strong {
+  margin: 12px 0 5px;
+  font-size: 10px;
+}
+
+.ccAllClear span {
+  color: #849597;
+  font-size: 9px;
+}
+
+.ccSatelliteStatus i {
+  margin-left: auto;
+}
+
+.ccCommStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.ccCommStats div {
+  padding: 13px 8px;
+  background: #f5f8f7;
+  border-radius: 6px;
+}
+
+.ccCommStats span,
+.ccCommStats strong {
+  display: block;
+}
+
+.ccCommStats span {
+  color: #869699;
+  font-size: 7px;
+}
+
+.ccCommStats strong {
+  margin-top: 6px;
+  font-size: 15px;
+}
+
+.ccCommStats small {
+  color: #859699;
+  font-size: 7px;
+}
+
+/* FOOTER */
+
+.ccFooter {
+  margin-top: 35px;
+  padding: 19px 3px 6px;
+  border-top: 1px solid #d2dede;
+  color: #768a8d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 0.5px;
+}
+
+.ccFooter > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ccFooter svg {
+  color: #328c98;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1200px) {
+  .ccMetrics {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ccImageCards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ccLowerGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ccWeatherCard {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 900px) {
+  .ccApp {
+    display: block;
+  }
+
+  .ccSidebar {
+    display: none;
+  }
+
+  .ccMain {
+    width: 100%;
+  }
+
+  .ccHero {
+    height: 520px;
+  }
+
+  .ccHeroTop {
+    display: block;
+  }
+
+  .ccStationSwitch {
+    margin-top: 25px;
+    max-width: 280px;
+  }
+
+  .ccOperationsGrid,
+  .ccDataGrid,
+  .ccLowerGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ccMetrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ccTopActions .ccDataBadge {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .ccContent {
+    padding: 12px;
+  }
+
+  .ccTopbar {
+    padding: 0 15px;
+  }
+
+  .ccClock {
+    display: none;
+  }
+
+  .ccHeroContent {
+    padding: 25px;
+  }
+
+  .ccHero h1 {
+    font-size: 38px;
+  }
+
+  .ccMetrics,
+  .ccImageCards {
+    grid-template-columns: 1fr;
+  }
+
+  .ccPolicy {
+    align-items: flex-start;
+  }
+
+  .ccPolicy strong {
+    white-space: normal;
+  }
+
+  .ccStationOverview {
+    min-height: 430px;
+  }
+
+  .ccWeatherStats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .ccFooter {
+    display: block;
+  }
+
+  .ccFooter > span {
+    display: block;
+    margin-top: 10px;
+  }
+}
+/* =========================================================
+   POLARIS APPLICATION SHELL
+   ========================================================= */
+
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  background: #f3f6f7;
+  color: #152f36;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.appSidebar {
+  width: 248px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 22px 16px 18px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #071f27 0%,
+      #082730 48%,
+      #061d24 100%
+    );
+
+  border-right: 1px solid rgba(122, 209, 218, 0.12);
+
+  box-shadow:
+    12px 0 35px rgba(0, 22, 29, 0.12);
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.appBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 4px 4px 22px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+.appBrandIcon {
+  width: 39px;
+  height: 39px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  color: #6ed9e5;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(38, 164, 181, 0.15),
+      rgba(30, 121, 137, 0.06)
+    );
+
+  border:
+    1px solid rgba(92, 204, 217, 0.25);
+}
+
+.appBrandCopy {
+  min-width: 0;
+}
+
+.appBrandCopy strong {
+  display: block;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  letter-spacing: 3.2px;
+
+  color: #f4fbfc;
+}
+
+.appBrandCopy span {
+  display: block;
+
+  margin-top: 4px;
+
+  font-size: 8px;
+  font-weight: 500;
+
+  letter-spacing: 1.4px;
+
+  color: #73959c;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   ACTIVE STATION
+   ========================================================= */
+
+.appStation {
+  margin-top: 20px;
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border:
+    1px solid rgba(105, 193, 204, 0.14);
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(20, 82, 94, 0.28),
+      rgba(7, 37, 45, 0.3)
+    );
+}
+
+.appStationTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 11px;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+
+  color: #668d94;
+}
+
+.appStationLive {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #63cda9;
+}
+
+.appStationLive i {
+  width: 5px;
+  height: 5px;
+
+  display: block;
+
+  border-radius: 50%;
+
+  background: #4dd5a4;
+
+  box-shadow:
+    0 0 8px rgba(77, 213, 164, 0.75);
+}
+
+.appStationName {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.appStationName strong {
+  display: block;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  color: #f4fbfc;
+}
+
+.appStationName span {
+  display: block;
+
+  margin-top: 3px;
+
+  font-size: 9px;
+
+  color: #78999f;
+}
+
+.appStationName svg {
+  color: #668d94;
+}
+
+
+/* =========================================================
+   NAVIGATION LABEL
+   ========================================================= */
+
+.appNavSectionLabel {
+  margin:
+    24px 10px
+    9px;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.8px;
+
+  color: #567b82;
+}
+
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+.appNavigation {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.appNavItem {
+  position: relative;
+
+  min-height: 43px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding:
+    0 11px;
+
+  border-radius: 8px;
+
+  color: #88a5aa;
+
+  text-decoration: none;
+
+  font-size: 11px;
+  font-weight: 500;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease,
+    transform 0.18s ease;
+}
+
+.appNavItem:hover {
+  color: #e8f7f8;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+}
+
+.appNavItem.active {
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(28, 138, 155, 0.28),
+      rgba(25, 117, 132, 0.13)
+    );
+
+  box-shadow:
+    inset 2px 0 0 #4cc9d7;
+}
+
+.appNavIcon {
+  width: 24px;
+  height: 24px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  color: #6d9fa7;
+}
+
+.appNavItem:hover .appNavIcon {
+  color: #70d6df;
+}
+
+.appNavItem.active .appNavIcon {
+  color: #65d9e5;
+}
+
+.appNavArrow {
+  margin-left: auto;
+
+  opacity: 0;
+
+  color: #68b7c0;
+
+  transform: translateX(-4px);
+
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.appNavItem:hover .appNavArrow,
+.appNavItem.active .appNavArrow {
+  opacity: 1;
+
+  transform: translateX(0);
+}
+
+
+/* =========================================================
+   SIDEBAR BOTTOM
+   ========================================================= */
+
+.appSidebarBottom {
+  margin-top: auto;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid rgba(255, 255, 255, 0.07);
+}
+
+
+/* CONNECTION STATUS */
+
+.appConnectionCard {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 11px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(31, 116, 103, 0.08);
+
+  border:
+    1px solid rgba(68, 200, 160, 0.12);
+}
+
+.appConnectionIcon {
+  width: 30px;
+  height: 30px;
+
+  display: grid;
+  place-items: center;
+
+  flex-shrink: 0;
+
+  border-radius: 7px;
+
+  color: #5ed4ad;
+
+  background:
+    rgba(54, 187, 147, 0.08);
+}
+
+.appConnectionCopy {
+  min-width: 0;
+}
+
+.appConnectionCopy > span {
+  display: block;
+
+  margin-bottom: 4px;
+
+  color: #587f84;
+
+  font-size: 6px;
+  font-weight: 700;
+
+  letter-spacing: 1.3px;
+}
+
+.appConnectionCopy > div {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+}
+
+.appConnectionCopy i {
+  width: 5px;
+  height: 5px;
+
+  display: block;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #48d59e;
+
+  box-shadow:
+    0 0 7px rgba(72, 213, 158, 0.6);
+}
+
+.appConnectionCopy strong {
+  color: #a7c8c3;
+
+  font-size: 8px;
+  font-weight: 500;
+}
+
+
+/* SETTINGS */
+
+.appSettingsLink {
+  margin-top: 9px;
+
+  min-height: 39px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding:
+    0 10px;
+
+  border-radius: 7px;
+
+  color: #78989e;
+
+  text-decoration: none;
+
+  font-size: 10px;
+
+  transition:
+    color 0.18s ease,
+    background 0.18s ease;
+}
+
+.appSettingsLink:hover {
+  color: white;
+
+  background:
+    rgba(255, 255, 255, 0.045);
+}
+
+.appSettingsLink.active {
+  color: #e8f9fa;
+
+  background:
+    rgba(40, 145, 159, 0.13);
+}
+
+.appSettingsLink span {
+  flex: 1;
+}
+
+
+/* VERSION */
+
+.appVersion {
+  margin:
+    17px 8px
+    0;
+}
+
+.appVersion span {
+  display: block;
+
+  color: #587c82;
+
+  font-size: 7px;
+  font-weight: 700;
+
+  letter-spacing: 1.5px;
+}
+
+.appVersion small {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #456970;
+
+  font-size: 7px;
+}
+
+
+/* =========================================================
+   WORKSPACE
+   ========================================================= */
+
+.appWorkspace {
+  width: calc(100% - 248px);
+
+  min-height: 100vh;
+
+  margin-left: 248px;
+
+  background: #f3f6f7;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.appSidebar::-webkit-scrollbar {
+  width: 3px;
+}
+
+.appSidebar::-webkit-scrollbar-thumb {
+  background:
+    rgba(91, 181, 191, 0.22);
+
+  border-radius: 20px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-height: 780px) {
+
+  .appSidebar {
+    overflow-y: auto;
+  }
+
+  .appStation {
+    margin-top: 13px;
+  }
+
+  .appNavSectionLabel {
+    margin-top: 15px;
+  }
+
+  .appNavItem {
+    min-height: 38px;
+  }
+
+  .appSidebarBottom {
+    margin-top: 15px;
+  }
+}
+
+
+@media (max-width: 900px) {
+
+  .appSidebar {
+    display: none;
+  }
+
+  .appWorkspace {
+    width: 100%;
+    margin-left: 0;
+  }
+}
+/* =========================================================
+   SIDEBAR FINAL OVERRIDE
+   Prevent global page styles from breaking sidebar
+   ========================================================= */
+
+.appSidebar {
+  box-sizing: border-box;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.appSidebar *,
+.appSidebar *::before,
+.appSidebar *::after {
+  box-sizing: border-box;
+}
+
+.appBrandCopy {
+  display: flex;
+  flex-direction: column;
+}
+
+.appBrandCopy strong {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.2 !important;
+}
+
+.appBrandCopy span {
+  display: block !important;
+  margin-top: 5px !important;
+  line-height: 1.2 !important;
+}
+
+
+/* ACTIVE STATION */
+
+.appStation {
+  display: block !important;
+}
+
+.appStationTop {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+.appStationTop > span:first-child {
+  display: block !important;
+  white-space: nowrap !important;
+}
+
+.appStationLive {
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  white-space: nowrap !important;
+}
+
+.appStationName {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+}
+
+.appStationName > div {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+}
+
+.appStationName strong {
+  display: block !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+}
+
+.appStationName span {
+  display: block !important;
+  margin-top: 4px !important;
+  line-height: 1.25 !important;
+}
+
+
+/* SECTION LABEL */
+
+.appNavSectionLabel {
+  display: block !important;
+  line-height: 1 !important;
+}
+
+
+/* NAVIGATION */
+
+.appNavigation {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.appNavItem {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.appNavItem > span {
+  display: block !important;
+  flex: 1 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  line-height: 1.2 !important;
+
+  white-space: nowrap !important;
+}
+
+.appNavIcon {
+  display: grid !important;
+  place-items: center !important;
+}
+
+
+/* PLATFORM STATUS */
+
+.appConnectionCard {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.appConnectionCopy {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.appConnectionCopy > span {
+  display: block !important;
+  margin: 0 0 5px !important;
+  line-height: 1 !important;
+}
+
+.appConnectionCopy > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.appConnectionCopy strong {
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  line-height: 1.2 !important;
+}
+
+
+/* SETTINGS */
+
+.appSettingsLink {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.appSettingsLink > span {
+  display: block !important;
+  flex: 1 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  line-height: 1.2 !important;
+}
+
+
+/* VERSION */
+
+.appVersion {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.appVersion span,
+.appVersion small {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+
+/* REMOVE ANY OLD SIDEBAR INSIDE COMMAND CENTER */
+
+.appWorkspace .ccSidebar {
+  display: none !important;
+}
+
+.appWorkspace .ccApp {
+  display: block !important;
+  grid-template-columns: none !important;
+  min-height: 100vh !important;
+}
+
+.appWorkspace .ccMain {
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.polaris-layout {
+  min-height: 100vh;
+  width: 100%;
+}
+
+.polaris-workspace {
+  min-height: 100vh;
+
+  width: calc(100% - 238px);
+  margin-left: 238px;
+
+  overflow-x: hidden;
+
+  background: #f3f6f7;
+}
+
+@media (max-width: 900px) {
+  .polaris-workspace {
+    width: 100%;
+    margin-left: 0;
+  }
+}

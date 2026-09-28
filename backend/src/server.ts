@@ -3,48 +3,32 @@ import "dotenv/config";
 import app from "./app";
 
 const PORT = Number(
-  process.env.PORT || 5000
+  process.env.PORT || 5001
 );
 
 const server = app.listen(
   PORT,
   () => {
     console.log(
-      `🚀 Antarctic Digital Twin API running on port ${PORT}`
+      `🚀 Antarctic Digital Twin API running on http://localhost:${PORT}/api/v1`
     );
   }
 );
 
-process.on(
-  "SIGINT",
-  () => {
-    console.log(
-      "\n🛑 Server shutting down..."
-    );
+process.on("SIGINT", () => {
+  console.log("\n🛑 Server shutting down...");
 
-    server.close(() => {
-      console.log(
-        "Server closed."
-      );
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+});
 
-      process.exit(0);
-    });
-  }
-);
+process.on("SIGTERM", () => {
+  console.log("\n🛑 Server shutting down...");
 
-process.on(
-  "SIGTERM",
-  () => {
-    console.log(
-      "\n🛑 Server shutting down..."
-    );
-
-    server.close(() => {
-      console.log(
-        "Server closed."
-      );
-
-      process.exit(0);
-    });
-  }
-);
+  server.close(() => {
+    console.log("Server closed.");
+    process.exit(0);
+  });
+});
